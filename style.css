@@ -1,6 +1,6 @@
 *{
-    margin: 0;
-    padding: 0;
+    margin: 20;
+    padding: 20;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
@@ -10,4 +10,10 @@ html{
 body{
     background: #315af2;
     color: #fff;
+}
+.profile {
+    width: 100%;
+    height: 150px;
+    border-radius: 50%;
+    border: 10px solid #FEDE00;
 }
