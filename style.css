@@ -11,9 +11,20 @@ body{
     background: #315af2;
     color: #fff;
 }
-.profile {
-    width: 20%;
-    height: 15px;
-    border-radius: 50%;
-    border: 10px solid #FEDE00;
+.tracker{
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 600px;
+}
+.tracker,
+.tracker * {
+    font-family: sans-serif;
+}
+
+.tracker th {
+    font-size: 1.15em;
+    text-align: left;
+    font-weight: normal;
+    color: #fff;
+    background: #009577;
 }
