@@ -66,7 +66,7 @@ export default class WorkoutTracker {
                     <span class="tracker__text">minutes</span>
                 </td>
                 <td>
-                    <button type="button" class="tracker__button">&times;</button>
+                    <button type="button" class="tracker__button tracker__delete">&times;</button>
                 </td>
             </tr>
         `;
@@ -96,29 +96,31 @@ export default class WorkoutTracker {
             row.querySelector(".tracker__date").addEventListener("change", ({ target }) => {
                 data.date = target.value;
                 this.saveEntries();
-            })
+            });
 
             row.querySelector(".tracker__workout").addEventListener("change", ({ target }) => {
                 data.workout = target.value;
                 this.saveEntries();
-            })
+            });
 
             row.querySelector(".tracker__duration").addEventListener("change", ({ target }) => {
                 data.duration = target.value;
                 this.saveEntries();
-            })
+            });
 
-            // TODO: add event to delete row
+            row.querySelector(".tracker__delete").addEventListener("click", () => {
+                this.deleteEntry(data);
+            });
 
             tableBody.appendChild(row);
         };
 
         tableBody.querySelectorAll(".tracker__row").forEach(row => {
             row.remove();
-        })
+        });
 
         this.entries.forEach(data => addRow(data));
-    }
+    };
 
     addEntry(data) {
         this.entries.push(data);
