@@ -1,4 +1,5 @@
 export default class WorkoutTracker {
+    static LOCAL_STORAGE_DATA_KEY = "workout-tracker-entries";
     constructor(root) {
         this.root = root;
         this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html());
