@@ -28,3 +28,45 @@ body{
     color: #fff;
     background: #009577;
 }
+
+.tracker th,
+.tracker td {
+    padding: 0.75em;
+}
+
+.tracker__entries .tracker__row {
+    background: #eeeeee;
+}
+
+.tracker__entries .tracker__row:nth-child(odd) {
+    background: #dddddd;
+}
+
+.tracker__date,
+.tracker__workout,
+.tracker__duration {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 1em;
+    height: 2.5em;
+    padding: 0.5em 0;
+    outline: none;
+}
+
+.tracker__duration {
+    width: 5em;
+    text-align: right;
+}
+
+.tracker__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+    cursor: pointer;
+}
