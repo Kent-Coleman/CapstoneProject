@@ -6,6 +6,17 @@ export default class WorkoutTracker {
 
         this.loadEntries();
         this.updateView();
+
+        this.root.querySelector(".tracker__add").addEventListener("click", () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, "0");
+            const day = date.getDay().toString().padStart(2, "0");
+
+            this.addEntry({
+                date: `${year }-${ month }-${ day }`;
+            });
+        });
     }
 
     static html() {
