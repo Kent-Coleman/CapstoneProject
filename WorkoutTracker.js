@@ -125,4 +125,10 @@ export default class WorkoutTracker {
         this.saveEntries();
         this.updateView();
     }
+
+    deleteEntry(dataToDelete) {
+        this.entries = this.entries.filter(data => data !== dataToDelete);
+        this.saveEntries();
+        this.updateView();
+    }
 }
