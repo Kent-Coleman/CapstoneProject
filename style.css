@@ -70,3 +70,7 @@ body{
     margin-left: 0.5em;
     cursor: pointer;
 }
+
+.tracker__button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
