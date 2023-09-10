@@ -2,6 +2,9 @@ export default class WorkoutTracker {
     constructor(root) {
         this.root = root;
         this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html());
+
+        this.loadEntries();
+        this.updateView();
     }
 
     static html() {
@@ -25,5 +28,9 @@ export default class WorkoutTracker {
                 </tbody>
             </table>
         `;
+    }
+
+    loadEntries() {
+        this.entries = JSON.parse(localStorage.getItem("workout-tracker-entries") || "[]");
     }
 }
