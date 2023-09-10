@@ -2,4 +2,6 @@ import WorkoutTracker from "./WorkoutTracker.js";
 
 const app = document.getElementById("app");
 
-new WorkoutTracker(app);
+const wt = new WorkoutTracker(app);
+
+window.wt = wt;

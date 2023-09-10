@@ -38,4 +38,23 @@ export default class WorkoutTracker {
     saveEntries() {
         localStorage.setItem("workout-tracker-entries", JSON.stringify(this.entries));
     }
+
+    updateView() {
+        const tableBody = this.root.querySelector(".tracker__entries");
+        const addRow = data => {
+            const template = document.createElement("template");
+            let row = null;
+
+            template.innerHTML = WorkoutTracker.rowHTML().trim();
+            row = template.content.firstElementChild;
+
+            tableBody.appendChild(row);
+        };
+
+        tableBody.querySelectorAll(".tracker__row").forEach(row => {
+            row.delete();
+        })
+
+        this.entries.forEach(data => addRow(data));
+    }
 }
