@@ -14,7 +14,9 @@ export default class WorkoutTracker {
             const day = date.getDay().toString().padStart(2, "0");
 
             this.addEntry({
-                date: `${year }-${ month }-${ day }`;
+                date: `${year }-${ month }-${ day }`,
+                workout: "walking",
+                duration: 30
             });
         });
     }
