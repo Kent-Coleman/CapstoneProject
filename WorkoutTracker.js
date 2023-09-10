@@ -12,9 +12,10 @@ export default class WorkoutTracker {
             const year = date.getFullYear();
             const month = (date.getMonth() + 1).toString().padStart(2, "0");
             const day = date.getDay().toString().padStart(2, "0");
+            // TODO: Fix bug preventing default of current date
 
             this.addEntry({
-                date: `${year }-${ month }-${ day }`,
+                date: `${ year }-${ month }-${ day }`,
                 workout: "walking",
                 duration: 30
             });
@@ -92,7 +93,21 @@ export default class WorkoutTracker {
             row.querySelector(".tracker__workout").value = data.workout;
             row.querySelector(".tracker__duration").value = data.duration;
 
-            // TODO: add events for input changing
+            row.querySelector(".tracker__date").addEventListener("change", ({ target }) => {
+                data.date = target.value;
+                this.saveEntries();
+            })
+
+            row.querySelector(".tracker__workout").addEventListener("change", ({ target }) => {
+                data.workout = target.value;
+                this.saveEntries();
+            })
+
+            row.querySelector(".tracker__duration").addEventListener("change", ({ target }) => {
+                data.duration = target.value;
+                this.saveEntries();
+            })
+
             // TODO: add event to delete row
 
             tableBody.appendChild(row);
