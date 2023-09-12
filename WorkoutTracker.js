@@ -74,11 +74,11 @@ export default class WorkoutTracker {
     }
 
     loadEntries() {
-        this.entries = JSON.parse(localStorage.getItem("workout-tracker-entries") || "[]");
+        this.entries = JSON.parse(localStorage.getItem("WorkoutTracker.LOCAL_STORAGE_DATA_KEY") || "[]");
     }
 
     saveEntries() {
-        localStorage.setItem("workout-tracker-entries", JSON.stringify(this.entries));
+        localStorage.setItem("WorkoutTracker.LOCAL_STORAGE_DATA_KEY", JSON.stringify(this.entries));
     }
 
     updateView() {
