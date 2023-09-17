@@ -29,6 +29,12 @@ body{
     background: #4f6fe5;
     color: #000000;
 }
+
+.fitnesstracker{
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center;
+}
 .tracker{
     font-size: 14px;
     border-collapse: collapse;
