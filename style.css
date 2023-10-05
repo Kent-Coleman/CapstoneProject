@@ -158,3 +158,6 @@ label{
     border-radius: 5px;
     cursor: pointer;
 }
+input{
+    display: none;
+}

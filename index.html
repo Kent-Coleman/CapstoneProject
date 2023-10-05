@@ -66,13 +66,22 @@
         <div class="card">
             <h1>Kent Coleman</h1>
             <p>@kentcoleman</p>
-            <img src="images/user4.png">
+            <img src="images/user4.png" id="profile-pic">
             <label for="input-file">update image</label>
             <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
         </div>
 
     </div>
 
-    
+<script>
+
+let profilePic = document.getElementById("profile-pic");
+let inputFile = document.getElementById("input-file");
+
+inputFile.onchange = function(){
+    profilePic.src = URL.createObjectURL(inputFile.files[0]);
+}
+
+</script>
 </body>
 <html>
