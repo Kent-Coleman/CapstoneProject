@@ -107,11 +107,21 @@
     </div>
 
 <script>
-let profilePic = document.getElementById("profile-pic");
-let inputFile = document.getElementById("input-file");
+    let profilePic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
+
+    // Check if there's a previously stored image in local storage
+    let storedImage = localStorage.getItem("profileImage");
+    if (storedImage) {
+        profilePic.src = storedImage;
+}
 
 inputFile.onchange = function(){
+    // Set the image source in the profilePic element
     profilePic.src = URL.createObjectURL(inputFile.files[0]);
+
+    // Save the selected image to local storage
+    localStorage.setItem("profileImage", profilePic.src);
 }
 </script>
 
