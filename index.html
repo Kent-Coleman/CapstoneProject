@@ -9,8 +9,9 @@
     <script src="main.js" type="module"></script>
   </head>
 <body>
-
-    <h1>Framed Fitness</h1>
+    <div class = "header">
+        <h1>Framed Fitness</h1>
+    </div>
 
     <!--HomeGame-->
  
@@ -33,6 +34,11 @@
             <div>
                 <button class="achievementsbutton" id="achievements-button">Achievements</button>
             </div>
+        </div>
+        <div id="achievements-popup" class="popup">
+            <!-- Content for your achievements popup goes here -->
+            <p>This is your achievements popup.</p>
+            <button id="close-popup">Close</button>
         </div>
     </div>
 
@@ -89,6 +95,21 @@ let inputFile = document.getElementById("input-file");
 inputFile.onchange = function(){
     profilePic.src = URL.createObjectURL(inputFile.files[0]);
 }
+</script>
+
+<script>
+    // JavaScript to toggle the popup
+    const achievementsButton = document.getElementById('achievements-button');
+    const achievementsPopup = document.getElementById('achievements-popup');
+    const closePopupButton = document.getElementById('close-popup');
+
+    achievementsButton.addEventListener('click', function () {
+        achievementsPopup.style.display = 'block';
+    });
+
+    closePopupButton.addEventListener('click', function () {
+        achievementsPopup.style.display = 'none';
+    });
 </script>
 
 </body>
