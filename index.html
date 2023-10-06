@@ -9,25 +9,28 @@
     <script src="main.js" type="module"></script>
   </head>
 <body>
+
     <div class = "header">
         <h1>Framed Fitness</h1>
     </div>
 
-    <!--HomeGame-->
- 
+    <!--ProfileCard-->
     <div class="container">
-        <!--ProfileCard-->
         <div class="card">
-            <h1>Kent Coleman</h1>
+            <h1 contentEditable="true">Kent Coleman</h1>
             <img src="images/user4.png" id="profile-pic">
             <label for="input-file">update image</label>
             <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
         </div>
+
+        <!--HomeGame-->
         <div class="home">
             <img src="images/image.jpg" alt="My Image">
         </div>
+
         <!--ButtonMenu-->
         <div class="button_menu">
+            <h1>Menu</h1>
             <div>
                 <button class="graphbutton" id="graph-button">Progress Graph</button>
             </div>
@@ -37,13 +40,20 @@
         </div>
         <div id="achievements-popup" class="popup">
             <!-- Content for your achievements popup goes here -->
-            <p>This is your achievements popup.</p>
-            <button id="close-popup1">Close</button>
+            <p><strong>Rookie Runner:</strong> Log your first exercise session.</p>
+            <p><strong>Daily Devotee:</strong> Log exercise sessions for seven consecutive days.</p>
+            <p><strong>Milestone Mover:</strong> Achieve a total of 10 exercises logged.</p>
+            <p><strong>Yoga Guru:</strong> Complete 5 yoga sessions.</p>
+            <p><strong>Consistency Champion:</strong> Log exercises for 30 consecutive days.</p>
+            <p><strong>Weekend Warrior:</strong> Log exercises on both Saturday and Sunday for four consecutive weeks.</p>
+            <p><strong>Flexibility Fanatic:</strong> Log 10 days of yoga.</p>
+            <p><strong>Exercise Explorer:</strong> Try at least 5 different types of workouts.</p>
+            <button class="popupclose" id="close-popup1">Close</button>
         </div>
         <div id="progress-graph-popup" class="popup">
             <!-- Content for your achievements popup goes here -->
             <p>This is your achievements popup.</p>
-            <button id="close-popup2">Close</button>
+            <button class="popupclose" id="close-popup2">Close</button>
         </div>
     </div>
 

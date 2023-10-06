@@ -84,12 +84,23 @@ h1{
     width: 800px;
     height: 400px;
     transform: translate(-50%, -50%);
-    background-color: #e3362c;
+    color: #000000;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     z-index: 9999;
-    border: 2px solid #009577;
+    border: 2px solid #000000;
+}
+.popupclose{
+    display: block;
+    width: 200px;
+    background: #e3362c;
+    color: #fff;
+    padding: 12px;
+    margin: 10px auto;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 body{
@@ -210,10 +221,6 @@ body{
     align-items: center; /* Center content vertically */
     text-align: center;
     color: #333;
-}
-.card h1{
-    font-weight: 3000;
-    color: #ffffff;
 }
 .card img{
     width: 130px;
