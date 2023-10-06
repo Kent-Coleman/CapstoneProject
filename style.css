@@ -21,6 +21,11 @@ html{
 
 .header{
     background: #009577;
+    border-radius: 10px;
+    width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 h1{
     text-align: center;
@@ -74,13 +79,17 @@ h1{
 .popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 30%;
     left: 50%;
+    width: 800px;
+    height: 400px;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: #e3362c;
     padding: 20px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     z-index: 9999;
+    border: 2px solid #009577;
 }
 
 body{
@@ -92,11 +101,18 @@ body{
     display: flex;
     justify-content: center; /* Horizontal centering */
     align-items: center;
+    background: #009577;
+    padding: 40px;
+    border-radius: 10px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .tracker{
     font-size: 14px;
     border-collapse: collapse;
     width: 600px;
+
 }
 .tracker,
 .tracker * {
@@ -108,7 +124,7 @@ body{
     text-align: left;
     font-weight: normal;
     color: #fff;
-    background: #009577;
+    background: #e3362c;
 }
 
 .tracker th,
@@ -158,8 +174,8 @@ body{
 }
 
 .tracker__row--add {
-    border-top: 3px solid #333333;
-    border-bottom: 3px solid #333333;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
     background: #ffffff;
 }
 
@@ -170,12 +186,14 @@ body{
 .tracker__add {
     display: inline-block;
     padding: 0.8em 1em;
-    color: black;
+    color: rgb(255, 255, 255);
     cursor: pointer;
+    background: #e3362c;
+    border-radius: 10px;
 }
 
 .tracker__add:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(40, 47, 192, 0.1);
 }
 
 /* Profile Card */
@@ -214,6 +232,7 @@ label{
     margin: 10px auto;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 input{
     display: none;
