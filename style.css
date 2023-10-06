@@ -33,6 +33,9 @@ h1{
     margin-right: auto;
     color: #ffffff;
 }
+.homecontainer{
+    padding: 40px;
+}
 .home img{
     display: block;
     margin: 2px;
