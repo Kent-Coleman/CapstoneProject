@@ -38,7 +38,12 @@
         <div id="achievements-popup" class="popup">
             <!-- Content for your achievements popup goes here -->
             <p>This is your achievements popup.</p>
-            <button id="close-popup">Close</button>
+            <button id="close-popup1">Close</button>
+        </div>
+        <div id="progress-graph-popup" class="popup">
+            <!-- Content for your achievements popup goes here -->
+            <p>This is your achievements popup.</p>
+            <button id="close-popup2">Close</button>
         </div>
     </div>
 
@@ -98,17 +103,30 @@ inputFile.onchange = function(){
 </script>
 
 <script>
-    // JavaScript to toggle the popup
     const achievementsButton = document.getElementById('achievements-button');
     const achievementsPopup = document.getElementById('achievements-popup');
-    const closePopupButton = document.getElementById('close-popup');
+    const closePopupButton1 = document.getElementById('close-popup1');
 
     achievementsButton.addEventListener('click', function () {
         achievementsPopup.style.display = 'block';
     });
 
-    closePopupButton.addEventListener('click', function () {
+    closePopupButton1.addEventListener('click', function () {
         achievementsPopup.style.display = 'none';
+    });
+</script>
+
+<script>
+    const graphButton = document.getElementById('graph-button');
+    const graphPopup = document.getElementById('progress-graph-popup');
+    const closePopupButton2 = document.getElementById('close-popup2');
+
+    graphButton.addEventListener('click', function () {
+        graphPopup.style.display = 'block';
+    });
+
+    closePopupButton2.addEventListener('click', function () {
+        graphPopup.style.display = 'none';
     });
 </script>
 
