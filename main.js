@@ -1,4 +1,5 @@
 import WorkoutTracker from "./WorkoutTracker.js";
+import chart from "./chart.js"
 
 const app = document.getElementById("app");
 

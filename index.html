@@ -17,7 +17,9 @@
     <!--ProfileCard-->
     <div class="container">
         <div class="card">
-            <h1 contentEditable="true">Kent Coleman</h1>
+            <div class="profilecardname">
+                <h1 contentEditable="true">Kent Coleman</h1>
+            </div>
             <img src="images/user4.png" id="profile-pic">
             <label for="input-file">update image</label>
             <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
@@ -26,7 +28,7 @@
         <!--HomeGame-->
         <div class="homecontainer">
             <div class="home">
-                <img src="images/0.png" alt="My Image">
+                <img src="images/0.png" alt="My Image" id="home-game-image">
             </div>
         </div>
 
@@ -52,10 +54,16 @@
             <p><strong>Exercise Explorer:</strong> Try at least 5 different types of workouts.</p>
             <button class="popupclose" id="close-popup1">Close</button>
         </div>
+        <!-- Graph Popup -->
         <div id="progress-graph-popup" class="popup2">
-            <!-- Content for your achievements popup goes here -->
             <p><strong>Progress Graph</strong></p>
-            <img src="images/graph.png" alt="Achievement Image">
+            <div class="graph-container">
+                <div class="bar" style="height: 50%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 30%;"></div>
+                <!-- Add more bars as needed -->
+            </div>
+            <!-- <img src="images/graph.png" alt="Achievement Image"> -->
             <button class="popupclose" id="close-popup2">Close</button>
         </div>
     </div>
@@ -153,5 +161,15 @@ inputFile.onchange = function(){
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const bars = document.querySelectorAll(".bar");
+    const data = [50, 80, 30]; // Sample data (adjust as needed)
+
+    bars.forEach((bar, index) => {
+        bar.style.height = data[index] + "%";
+    });
+});
+</script>
 </body>
 <html>

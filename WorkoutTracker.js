@@ -121,6 +121,30 @@ export default class WorkoutTracker {
         });
 
         this.entries.forEach(data => addRow(data));
+
+        const totalDuration = this.entries.reduce((total, entry) => total + entry.duration, 0);
+    
+        // Update the home game image based on the total duration
+        const homeGameImage = document.getElementById("home-game-image");
+        if (totalDuration < 60) {
+            homeGameImage.src = "images/0.png";
+        } else if (totalDuration >= 60 && totalDuration < 120) {
+            homeGameImage.src = "images/1.png";
+        } else if (totalDuration >= 120 && totalDuration < 180) {
+            homeGameImage.src = "images/2.png";
+        } else if (totalDuration >= 180 && totalDuration < 220) {
+            homeGameImage.src = "images/3.png";
+        } else if (totalDuration >= 220 && totalDuration < 260) {
+            homeGameImage.src = "images/4.png";
+        } else if (totalDuration >= 260 && totalDuration < 300) {
+            homeGameImage.src = "images/5.png";
+        } else if (totalDuration >= 300 && totalDuration < 340) {
+            homeGameImage.src = "images/6.png";
+        } else if (totalDuration >= 380 && totalDuration < 450) {
+            homeGameImage.src = "images/7.png";
+        } else {
+            homeGameImage.src = "images/8.png";
+        }
     };
 
     addEntry(data) {
