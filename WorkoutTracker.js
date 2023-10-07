@@ -145,6 +145,7 @@ export default class WorkoutTracker {
         } else {
             homeGameImage.src = "images/8.png";
         }
+
     };
 
     addEntry(data) {
@@ -157,5 +158,37 @@ export default class WorkoutTracker {
         this.entries = this.entries.filter(data => data !== dataToDelete);
         this.saveEntries();
         this.updateView();
+    }
+
+    calculateTotalDurations() {
+        const exerciseTypes = [
+            "walking",
+            "running",
+            "cycling",
+            "yoga",
+            "swimming",
+            "strength-exercise"
+        ];
+
+        const totalDurations = {};
+
+        // Initialize totalDurations object with zeros for each exercise type
+        exerciseTypes.forEach(exercise => {
+            totalDurations[exercise] = 0;
+        });
+
+        // Calculate total duration for each exercise type
+        this.entries.forEach(entry => {
+            if (entry.workout in totalDurations) {
+                totalDurations[entry.workout] += entry.duration;
+            }
+        });
+
+        return totalDurations;
+    }
+
+    // Expose the total durations as properties
+    get totalDurations() {
+        return this.calculateTotalDurations();
     }
 }

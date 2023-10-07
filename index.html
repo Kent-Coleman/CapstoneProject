@@ -56,13 +56,8 @@
         </div>
         <!-- Graph Popup -->
         <div id="progress-graph-popup" class="popup2">
-            <p><strong>Progress Graph</strong></p>
-            <div class="graph-container">
-                <div class="bar" style="height: 50%;"></div>
-                <div class="bar" style="height: 80%;"></div>
-                <div class="bar" style="height: 30%;"></div>
-                <!-- Add more bars as needed -->
-            </div>
+            <!-- <p><strong>Progress Graph</strong></p> -->
+            <div id="container" style="width: 100%; height: 100%"></div>
             <!-- <img src="images/graph.png" alt="Achievement Image"> -->
             <button class="popupclose" id="close-popup2">Close</button>
         </div>
@@ -147,7 +142,7 @@ inputFile.onchange = function(){
     });
 </script>
 
-<script>
+<script> 
     const graphButton = document.getElementById('graph-button');
     const graphPopup = document.getElementById('progress-graph-popup');
     const closePopupButton2 = document.getElementById('close-popup2');
@@ -161,15 +156,46 @@ inputFile.onchange = function(){
     });
 </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const bars = document.querySelectorAll(".bar");
-    const data = [50, 80, 30]; // Sample data (adjust as needed)
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
 
-    bars.forEach((bar, index) => {
-        bar.style.height = data[index] + "%";
+<script>
+    let workoutEntries = JSON.parse(localStorage.getItem('WorkoutTracker.LOCAL_STORAGE_DATA_KEY'));
+
+    let result = workoutEntries.map((entry) => { return [entry.workout, parseInt(entry.duration)]})
+
+    entries = new Map();
+    for (let [workout,duration] of result) {
+        if (entries.get(workout)) {
+            entries.set(workout, entries.get(workout) + duration)
+            continue
+        }
+        
+        entries.set(workout, duration)
+    }
+
+    anychart.onDocumentReady(function() {
+
+    // set the data
+    var data = {
+        header: ["Name", "Total Minutes Exercised"],
+        rows: Array.from(entries, ([name, value]) => ({name, value}))
+    };
+
+    // create the chart
+    var chart = anychart.bar();
+
+    // add data
+    chart.data(data);
+
+    // set the chart title
+    chart.title("Exercise Progress");
+
+
+    // draw
+    chart.container("container");
+    chart.draw();
     });
-});
 </script>
+
 </body>
 <html>

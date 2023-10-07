@@ -1,3 +1,5 @@
+import WorkoutTracker from "./WorkoutTracker.js";
+
 export default class chart {
     updateView() {
         // ... (existing code)
