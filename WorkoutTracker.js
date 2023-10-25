@@ -161,6 +161,7 @@ export default class WorkoutTracker {
     }
 
     calculateTotalDurations() {
+        const totalDurations = {};
         const exerciseTypes = [
             "walking",
             "running",
@@ -169,8 +170,6 @@ export default class WorkoutTracker {
             "swimming",
             "strength-exercise"
         ];
-
-        const totalDurations = {};
 
         // Initialize totalDurations object with zeros for each exercise type
         exerciseTypes.forEach(exercise => {
@@ -183,7 +182,6 @@ export default class WorkoutTracker {
                 totalDurations[entry.workout] += entry.duration;
             }
         });
-
         return totalDurations;
     }
 
