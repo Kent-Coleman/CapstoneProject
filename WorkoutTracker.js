@@ -1,24 +1,19 @@
 export default class WorkoutTracker {
     static LOCAL_STORAGE_DATA_KEY = "workout-tracker-entries";
-    
+
     constructor(root) {
         this.root = root;
-        this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html());
         this.entries = [];
 
+        this.initHTML();
         this.loadEntries();
         this.updateView();
 
         this.root.querySelector(".tracker__add").addEventListener("click", () => {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = (date.getMonth() + 1).toString().padStart(2, "0");
-            const day = date.getDate().toString().padStart(2, "0"); //Changed getDay to getDate
-
             this.addEntry({
-                date: `${ year }-${ month }-${ day }`,
+                date: new Date().toISOString().split('T')[0],
                 workout: "walking",
-                duration: 30
+                duration: 30,
             });
         });
     }
@@ -38,7 +33,7 @@ export default class WorkoutTracker {
                 <tbody>
                     <tr class="tracker__row tracker__row--add">
                         <td colspan="4">
-                            <button type="button" class="tracker__add">Add Entry &plus;</span>
+                            <button type="button" class="tracker__add">Add Entry &plus;</button>
                         </td>
                     </tr>
                 </tbody>
@@ -56,10 +51,7 @@ export default class WorkoutTracker {
                     <select class="tracker__workout">
                         <option value="walking">Walking</option>
                         <option value="running">Running</option>
-                        <option value="cycling">Cycling</option>
-                        <option value="yoga">Yoga</option>
-                        <option value="swimming">Swimming</option>
-                        <option value="strength-exercise">Strength Exercise</option>
+                        <!-- Add other workout options here -->
                     </select>
                 </td>
                 <td>
@@ -73,80 +65,74 @@ export default class WorkoutTracker {
         `;
     }
 
+    initHTML() {
+        this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html());
+    }
+
     loadEntries() {
-        this.entries = JSON.parse(localStorage.getItem("WorkoutTracker.LOCAL_STORAGE_DATA_KEY") || "[]");
+        const storedData = localStorage.getItem(WorkoutTracker.LOCAL_STORAGE_DATA_KEY);
+        this.entries = storedData ? JSON.parse(storedData) : [];
     }
 
     saveEntries() {
-        localStorage.setItem("WorkoutTracker.LOCAL_STORAGE_DATA_KEY", JSON.stringify(this.entries));
+        localStorage.setItem(WorkoutTracker.LOCAL_STORAGE_DATA_KEY, JSON.stringify(this.entries));
     }
 
     updateView() {
         const tableBody = this.root.querySelector(".tracker__entries");
-        const addRow = data => {
-            const template = document.createElement("template");
-            let row = null;
+        tableBody.innerHTML = "";
 
-            template.innerHTML = WorkoutTracker.rowHtml().trim();
-            row = template.content.firstElementChild;
-
-            row.querySelector(".tracker__date").value = data.date;
-            row.querySelector(".tracker__workout").value = data.workout;
-            row.querySelector(".tracker__duration").value = data.duration;
-
-            row.querySelector(".tracker__date").addEventListener("change", ({ target }) => {
-                data.date = target.value;
-                this.saveEntries();
-            });
-
-            row.querySelector(".tracker__workout").addEventListener("change", ({ target }) => {
-                data.workout = target.value;
-                this.saveEntries();
-            });
-
-            row.querySelector(".tracker__duration").addEventListener("change", ({ target }) => {
-                data.duration = target.value;
-                this.saveEntries();
-            });
-
-            row.querySelector(".tracker__delete").addEventListener("click", () => {
-                this.deleteEntry(data);
-            });
-
+        this.entries.forEach(data => {
+            const row = this.createRow(data);
             tableBody.appendChild(row);
-        };
-
-        tableBody.querySelectorAll(".tracker__row").forEach(row => {
-            row.remove();
         });
 
-        this.entries.forEach(data => addRow(data));
+        this.updateHomeGameImage();
+    }
 
+    createRow(data) {
+        const template = document.createElement("template");
+        template.innerHTML = WorkoutTracker.rowHtml().trim();
+        const row = template.content.firstElementChild;
+
+        const dateInput = row.querySelector(".tracker__date");
+        const workoutSelect = row.querySelector(".tracker__workout");
+        const durationInput = row.querySelector(".tracker__duration");
+        const deleteButton = row.querySelector(".tracker__delete");
+
+        dateInput.value = data.date;
+        workoutSelect.value = data.workout;
+        durationInput.value = data.duration;
+
+        dateInput.addEventListener("change", () => {
+            data.date = dateInput.value;
+            this.saveEntries();
+        });
+
+        workoutSelect.addEventListener("change", () => {
+            data.workout = workoutSelect.value;
+            this.saveEntries();
+        });
+
+        durationInput.addEventListener("change", () => {
+            data.duration = parseInt(durationInput.value, 10);
+            this.saveEntries();
+        });
+
+        deleteButton.addEventListener("click", () => {
+            this.deleteEntry(data);
+        });
+
+        return row;
+    }
+
+    updateHomeGameImage() {
         const totalDuration = this.entries.reduce((total, entry) => total + entry.duration, 0);
-    
-        // Update the home game image based on the total duration
-        const homeGameImage = document.getElementById("home-game-image");
-        if (totalDuration < 60) {
-            homeGameImage.src = "images/0.png";
-        } else if (totalDuration >= 60 && totalDuration < 120) {
-            homeGameImage.src = "images/1.png";
-        } else if (totalDuration >= 120 && totalDuration < 180) {
-            homeGameImage.src = "images/2.png";
-        } else if (totalDuration >= 180 && totalDuration < 220) {
-            homeGameImage.src = "images/3.png";
-        } else if (totalDuration >= 220 && totalDuration < 260) {
-            homeGameImage.src = "images/4.png";
-        } else if (totalDuration >= 260 && totalDuration < 300) {
-            homeGameImage.src = "images/5.png";
-        } else if (totalDuration >= 300 && totalDuration < 340) {
-            homeGameImage.src = "images/6.png";
-        } else if (totalDuration >= 380 && totalDuration < 450) {
-            homeGameImage.src = "images/7.png";
-        } else {
-            homeGameImage.src = "images/8.png";
-        }
+        const imageNumber = Math.min(Math.floor(totalDuration / 60), 8); // Adjust this range as needed
 
-    };
+        const homeGameImage = document.getElementById("home-game-image");
+        homeGameImage.src = `images/${imageNumber}.png`;
+    }
 
     addEntry(data) {
         this.entries.push(data);
@@ -158,35 +144,5 @@ export default class WorkoutTracker {
         this.entries = this.entries.filter(data => data !== dataToDelete);
         this.saveEntries();
         this.updateView();
-    }
-
-    calculateTotalDurations() {
-        const totalDurations = {};
-        const exerciseTypes = [
-            "walking",
-            "running",
-            "cycling",
-            "yoga",
-            "swimming",
-            "strength-exercise"
-        ];
-
-        // Initialize totalDurations object with zeros for each exercise type
-        exerciseTypes.forEach(exercise => {
-            totalDurations[exercise] = 0;
-        });
-
-        // Calculate total duration for each exercise type
-        this.entries.forEach(entry => {
-            if (entry.workout in totalDurations) {
-                totalDurations[entry.workout] += entry.duration;
-            }
-        });
-        return totalDurations;
-    }
-
-    // Expose the total durations as properties
-    get totalDurations() {
-        return this.calculateTotalDurations();
     }
 }
