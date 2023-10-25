@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" type="module"></script>
   </head>
-<body>
 
+<body>
     <div class = "header">
         <h1>Framed Fitness</h1>
     </div>
 
-    <!--ProfileCard-->
-    <div class="container">
+    <div class="middlecontainer">
+<!--ProfileCard-->
+    <div id="profilecard">
         <div class="card">
             <div class="profilecardname">
                 <h1 contentEditable="true">Kent Coleman</h1>
@@ -24,26 +25,27 @@
             <label for="input-file">update image</label>
             <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
         </div>
+    </div>
 
-        <!--HomeGame-->
-        <div class="homecontainer">
-            <div class="home">
-                <img src="images/0.png" alt="My Image" id="home-game-image">
-            </div>
+<!--HomeGame-->
+    <div class="homecontainer">
+        <div class="home">
+            <img src="images/0.png" alt="My Image" id="home-game-image">
         </div>
+    </div>
 
-        <!--ButtonMenu-->
-        <div class="button_menu">
-            <h1>Menu</h1>
-            <div>
-                <button class="graphbutton" id="graph-button">Progress Graph</button>
-            </div>
-            <div>
-                <button class="achievementsbutton" id="achievements-button">Achievements</button>
-            </div>
+<!--ButtonMenu-->
+    <div class="button_menu">
+        <h1>Menu</h1>
+        <div>
+            <button class="graphbutton" id="graph-button">Progress Graph</button>
         </div>
+        <div>
+            <button class="achievementsbutton" id="achievements-button">Achievements</button>
+        </div>
+    </div>
+    <!--Achievements Popup-->
         <div id="achievements-popup" class="popup1">
-            <!-- Content for your achievements popup goes here -->
             <p><strong>Rookie Runner:</strong> Log your first exercise session.</p>
             <p><strong>Daily Devotee:</strong> Log exercise sessions for seven consecutive days.</p>
             <p><strong>Milestone Mover:</strong> Achieve a total of 10 exercises logged.</p>
@@ -54,148 +56,113 @@
             <p><strong>Exercise Explorer:</strong> Try at least 5 different types of workouts.</p>
             <button class="popupclose" id="close-popup1">Close</button>
         </div>
-        <!-- Graph Popup -->
+    <!--Graph Popup-->
         <div id="progress-graph-popup" class="popup2">
-            <!-- <p><strong>Progress Graph</strong></p> -->
+            <p><strong>Progress Graph</strong></p>
             <div id="container" style="width: 100%; height: 100%"></div>
-            <!-- <img src="images/graph.png" alt="Achievement Image"> -->
             <button class="popupclose" id="close-popup2">Close</button>
         </div>
-    </div>
 
+    </div> <!--End of Middle Container-->
 
-    <!--FitnessTracker-->
+<!--FitnessTracker-->
     <div class="fitnesstracker" id="app">
-        <!-- <table class="tracker">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Workout</th>
-                    <th>Duration</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="tracker__entries">
-                <tr class="tracker__row">
-                    <td>
-                        <input type="date" class="tracker__date">
-                    </td>
-                    <td>
-                        <select class="tracker__workout">
-                            <option value="walking">Walking</option>
-                            <option value="running">Running</option>
-                            <option value="cycling">Cycling</option>
-                            <option value="yoga">Yoga</option>
-                            <option value="swimming">Swimming</option>
-                            <option value="strength-exercise">Strength Exercise</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" class="tracker__duration">
-                        <span class="tracker__text">minutes</span>
-                    </td>
-                    <td>
-                        <button type="button" class="tracker__button">&times;</button>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr class="tracker__row tracker__row--add">
-                    <td colspan="4">
-                        <button type="button" class="tracker__add">Add Entry &plus;</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
     </div>
 
-<script>
-    let profilePic = document.getElementById("profile-pic");
-    let inputFile = document.getElementById("input-file");
+<!--JS Scripts-->
 
-    // Check if there's a previously stored image in local storage
-    let storedImage = localStorage.getItem("profileImage");
-    if (storedImage) {
-        profilePic.src = storedImage;
-}
+    <!--update profile img-->
+    <script>
+        let profilePic = document.getElementById("profile-pic");
+        let inputFile = document.getElementById("input-file");
 
-inputFile.onchange = function(){
-    // Set the image source in the profilePic element
-    profilePic.src = URL.createObjectURL(inputFile.files[0]);
-
-    // Save the selected image to local storage
-    localStorage.setItem("profileImage", profilePic.src);
-}
-</script>
-
-<script>
-    const achievementsButton = document.getElementById('achievements-button');
-    const achievementsPopup = document.getElementById('achievements-popup');
-    const closePopupButton1 = document.getElementById('close-popup1');
-
-    achievementsButton.addEventListener('click', function () {
-        achievementsPopup.style.display = 'block';
-    });
-
-    closePopupButton1.addEventListener('click', function () {
-        achievementsPopup.style.display = 'none';
-    });
-</script>
-
-<script> 
-    const graphButton = document.getElementById('graph-button');
-    const graphPopup = document.getElementById('progress-graph-popup');
-    const closePopupButton2 = document.getElementById('close-popup2');
-
-    graphButton.addEventListener('click', function () {
-        graphPopup.style.display = 'block';
-    });
-
-    closePopupButton2.addEventListener('click', function () {
-        graphPopup.style.display = 'none';
-    });
-</script>
-
-<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-
-<script>
-    let workoutEntries = JSON.parse(localStorage.getItem('WorkoutTracker.LOCAL_STORAGE_DATA_KEY'));
-
-    let result = workoutEntries.map((entry) => { return [entry.workout, parseInt(entry.duration)]})
-
-    entries = new Map();
-    for (let [workout,duration] of result) {
-        if (entries.get(workout)) {
-            entries.set(workout, entries.get(workout) + duration)
-            continue
-        }
-        
-        entries.set(workout, duration)
+        // Check if there's a previously stored image in local storage
+        let storedImage = localStorage.getItem("profileImage");
+        if (storedImage) {
+            profilePic.src = storedImage;
     }
 
-    anychart.onDocumentReady(function() {
+    inputFile.onchange = function(){
+        // Set the image source in the profilePic element
+        profilePic.src = URL.createObjectURL(inputFile.files[0]);
 
-    // set the data
-    var data = {
-        header: ["Name", "Total Minutes Exercised"],
-        rows: Array.from(entries, ([name, value]) => ({name, value}))
-    };
+        // Save the selected image to local storage
+        localStorage.setItem("profileImage", profilePic.src);
+    }
+    </script>
 
-    // create the chart
-    var chart = anychart.bar();
+    <!--acheivements button-->
+    <script>
+        const achievementsButton = document.getElementById('achievements-button');
+        const achievementsPopup = document.getElementById('achievements-popup');
+        const closePopupButton1 = document.getElementById('close-popup1');
 
-    // add data
-    chart.data(data);
+        achievementsButton.addEventListener('click', function () {
+            achievementsPopup.style.display = 'block';
+        });
 
-    // set the chart title
-    chart.title("Exercise Progress");
+        closePopupButton1.addEventListener('click', function () {
+            achievementsPopup.style.display = 'none';
+        });
+    </script>
+
+    <!--graph button-->
+    <script> 
+        const graphButton = document.getElementById('graph-button');
+        const graphPopup = document.getElementById('progress-graph-popup');
+        const closePopupButton2 = document.getElementById('close-popup2');
+
+        graphButton.addEventListener('click', function () {
+            graphPopup.style.display = 'block';
+        });
+
+        closePopupButton2.addEventListener('click', function () {
+            graphPopup.style.display = 'none';
+        });
+    </script>
+
+    <!--graph chart api-->
+    <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+
+    <!--Ties graph chart api to workout tracker-->
+    <script>
+        let workoutEntries = JSON.parse(localStorage.getItem('WorkoutTracker.LOCAL_STORAGE_DATA_KEY'));
+
+        let result = workoutEntries.map((entry) => { return [entry.workout, parseInt(entry.duration)]})
+
+        entries = new Map();
+        for (let [workout,duration] of result) {
+            if (entries.get(workout)) {
+                entries.set(workout, entries.get(workout) + duration)
+                continue
+            }
+            
+            entries.set(workout, duration)
+        }
+
+        anychart.onDocumentReady(function() {
+
+        // set the data
+        var data = {
+            header: ["Name", "Total Minutes Exercised"],
+            rows: Array.from(entries, ([name, value]) => ({name, value}))
+        };
+
+        // create the chart
+        var chart = anychart.bar();
+
+        // add data
+        chart.data(data);
+
+        // set the chart title
+        chart.title("Exercise Progress");
 
 
-    // draw
-    chart.container("container");
-    chart.draw();
-    });
-</script>
+        // draw
+        chart.container("container");
+        chart.draw();
+        });
+    </script>
 
 </body>
 <html>
