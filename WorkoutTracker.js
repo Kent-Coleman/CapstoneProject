@@ -75,6 +75,7 @@ export default class WorkoutTracker {
 
     loadEntries() {
         this.entries = JSON.parse(localStorage.getItem("WorkoutTracker.LOCAL_STORAGE_DATA_KEY") || "[]");
+        console.log(this.entries);
     }
 
     saveEntries() {
@@ -125,7 +126,7 @@ export default class WorkoutTracker {
         const totalDuration = this.entries.reduce((total, entry) => total + entry.duration, 0);
     
         // Update the home game image based on the total duration
-        const homeGameImage = document.getElementById("home-game-image");
+        let homeGameImage = document.getElementById("home-game-image");
         if (totalDuration < 60) {
             homeGameImage.src = "images/0.png";
         } else if (totalDuration >= 60 && totalDuration < 120) {
