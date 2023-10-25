@@ -1,5 +1,6 @@
 export default class WorkoutTracker {
     static LOCAL_STORAGE_DATA_KEY = "workout-tracker-entries";
+    
     constructor(root) {
         this.root = root;
         this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html());
@@ -12,8 +13,7 @@ export default class WorkoutTracker {
             const date = new Date();
             const year = date.getFullYear();
             const month = (date.getMonth() + 1).toString().padStart(2, "0");
-            const day = date.getDay().toString().padStart(2, "0");
-            // TODO: Fix bug preventing default of current date
+            const day = date.getDate().toString().padStart(2, "0"); //Changed getDay to getDate
 
             this.addEntry({
                 date: `${ year }-${ month }-${ day }`,

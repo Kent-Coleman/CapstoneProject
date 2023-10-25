@@ -77,7 +77,7 @@
         let inputFile = document.getElementById("input-file");
 
         // Check if there's a previously stored image in local storage
-        let storedImage = localStorage.getItem("profileImage");
+        let storedImage = localStorage.getItem("profile-pic");
         if (storedImage) {
             profilePic.src = storedImage;
     }
@@ -127,7 +127,6 @@
     <!--Ties graph chart api to workout tracker-->
     <script>
         let workoutEntries = JSON.parse(localStorage.getItem('WorkoutTracker.LOCAL_STORAGE_DATA_KEY'));
-
         let result = workoutEntries.map((entry) => { return [entry.workout, parseInt(entry.duration)]})
 
         entries = new Map();
@@ -136,31 +135,23 @@
                 entries.set(workout, entries.get(workout) + duration)
                 continue
             }
-            
             entries.set(workout, duration)
         }
-
         anychart.onDocumentReady(function() {
-
-        // set the data
-        var data = {
-            header: ["Name", "Total Minutes Exercised"],
-            rows: Array.from(entries, ([name, value]) => ({name, value}))
-        };
-
-        // create the chart
-        var chart = anychart.bar();
-
-        // add data
-        chart.data(data);
-
-        // set the chart title
-        chart.title("Exercise Progress");
-
-
-        // draw
-        chart.container("container");
-        chart.draw();
+            // set the data
+            var data = {
+                header: ["Name", "Total Minutes Exercised"],
+                rows: Array.from(entries, ([name, value]) => ({name, value}))
+            };
+            // create the chart
+            var chart = anychart.bar();
+            // add data
+            chart.data(data);
+            // set the chart title
+            chart.title("Exercise Progress");
+            // draw
+            chart.container("container");
+            chart.draw();
         });
     </script>
 
